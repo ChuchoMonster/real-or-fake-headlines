@@ -28,7 +28,7 @@ const MAX_FLORIDA_PER_GROUP = 1;
 
 /** Strip trailing " - Publication Name" suffixes from RSS/Google News.
  *  Only strips if the result is still long enough to be a real headline. */
-function cleanHeadline(h: string): string {
+export function cleanHeadline(h: string): string {
   const cleaned = h
     .replace(/\s+[-–—|]\s+[A-Z][\w\s&'.,:]{2,}$/, "")
     .replace(/\s+[-–—|]\s+\S+\.\S+$/, "")

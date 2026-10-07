@@ -1,5 +1,7 @@
 # Real or Fake?
 
+![tests](https://github.com/ChuchoMonster/real-or-fake-headlines/actions/workflows/tests.yml/badge.svg)
+
 A headline guessing game. Each round shows a news headline styled as a newspaper front page and
 the player decides whether it is **real** or **fake**. Real headlines are pulled from news APIs
 and RSS feeds; fakes are written by Claude to match the tone, length and plausibility of the real
@@ -81,6 +83,18 @@ The app uses these Supabase tables: `headlines`, `scores`, `profiles`, `headline
 `user_seen_headlines`. **Note:** `supabase/schema.sql` is the early leaderboard-only schema and
 does not yet include the other tables; their columns can be read from the queries in
 `lib/ingestion/insert.ts`, `lib/pool/read.ts` and the `app/api/` routes.
+
+## Tests
+
+```bash
+npm test   # vitest; no API keys, database or network needed
+```
+
+- Round building: the opening mix of real and fake, round 4 always a bonus, bonus/blank spacing, Florida cap, seen-headline filtering, and which bonus and blank rounds count as well-formed.
+- Headline cleaning: the quality filter, de-duplication, publication-suffix stripping, and parsing of NewsAPI, Reddit and Google News responses.
+- Claude output: pulling JSON out of the model's reply and dropping incomplete fakes, bonus sets and fill-in-the-blank rounds (Anthropic SDK mocked).
+- Leaderboard and accounts: the score ceiling, rank calculation, answer logging, display-name rules and sign-up checks (Supabase mocked).
+- CI runs the suite on every push and pull request (`.github/workflows/tests.yml`).
 
 ## Project layout
 
